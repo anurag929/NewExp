@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .centered-title {
+          text-align: center;
+          width: 100%;
+        }
+        .modal-header {
+          background-color: #343a40;
+          color: #ffffff;
+          text-align: center;
+          padding: 15px;
+        }
+      
+        /* Watermark style for printing */
+        .watermark {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(0, 0, 0, 0.2);
+          font-size: 100px;
+          font-weight: bold;
+          pointer-events: none;
+          z-index: 9999;
+        }
+      
+        /* Styles for printing */
+        @media print {
+          body * {
+            visibility: hidden; /* Hide all elements on the page */
+          }
+          #printable,
+          #printable * {
+            visibility: visible; /* Show only the printable content */
+          }
+          #printable {
+            position: absolute;
+            left: 0;
+            top: 0;
+          }
+          /* Show watermark only for the printable content */
+          .watermark {
+            visibility: visible;
+          }
+        }
+      </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>Bill</title>
+</head>
+<body>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#doctorDetailsModal">
+        Generate
+      </button>
+
+      <!-- The modal -->
+      <div class="modal fade" id="doctorDetailsModal" tabindex="-1" aria-labelledby="doctorDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title centered-title" id="doctorDetailsModalLabel">Appointment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              
+            <div class="modal-body">
+              <!-- Include your existing form here -->
+<!--                      <form class="form-sample" th:action="@{/admin/Update_Doctor}" method="post">-->
+    <form class="form-sample" id="printable">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Name:</label>
+              <input type="text" name="patient_name" class="form-control" readonly />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Contact:</label>
+              <input type="tel" id="contact" name="patient_contact" class="form-control" minlength="10" maxlength="10" min="1000000000" max="9999999999" required />
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Date:</label>
+              <input type="text" name="appointment_date" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Time:</label>
+              <input type="text" name="appointment_time" class="form-control" required />
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Department:</label>
+              <input type="text" name="department" class="form-control" required />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">Doctor Name:</label>
+              <input type="text" name="doctor_name" class="form-control" required />
+            </div>
+          </div>
+        </div>
+      
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="col-form-label">VisitId:</label>
+              <input type="number" id="visit_id" name="visit_id" class="form-control" readonly />
+            </div>
+          </div>
+        </div>
+        <div class="watermark">Watermark Text</div>
+
+      </form>
+            </div>
+            <div class="modal-footer">
+              <!-- Print button inside the modal -->
+              <button type="button" class="btn btn-success" onclick="printModalContent()">Print</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JavaScript function for printing -->
+      <script>
+// Function to print the content of the modal
+function printModalContent() {
+const printContent = document.getElementById('printable');
+const printWindow = window.open('', '', 'width=400, height=600');
+printWindow.document.write('<html><head><title>Jyotsna</title></head><body>');
+printWindow.document.write(printContent.innerHTML);
+printWindow.document.write('</body></html>');
+printWindow.document.close();
+printWindow.print();
+}
+</script>
+<!-- Add the watermark style and other styles -->
+
+  
+ 
+  
+ 
+  
+  
+</body>
+</html>
